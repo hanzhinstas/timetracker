@@ -15,10 +15,10 @@
             <span class="trec-icon-refresh"></span>
           </button> 
         </div>
-        <div class="project-list__item" *ngFor="let issue of agile.issues" [ngClass]='priorityClass(issue)' [style.border-left-color]='issue.field.Priority[1]'[ngClass]="issue.id == timerService.currentIssueId? 'recording' : ''">
+        <div class="project-list__item" *ngFor="let issue of agile.issues" [ngClass]='priorityClass(issue)' [style.border-left-color]="issue.field.hasOwnProperty('Priority')? issue.field.Priority[1]: ''" [ngClass]="issue.id == timerService.currentIssueId? 'recording' : ''">
           <div class="project-list__header">
             <span class="project-list__id" (click)="openInBrowser('/issue/'+issue.id)">{{ issue.id }}</span> 
-            <span class="project-list__priority" [ngClass]='priorityClass(issue)' [style.color]='issue.field.Priority[1]'>{{ issue.field.Priority[0] }}</span>
+            <span class="project-list__priority" *ngIf="issue.field.Priority" [ngClass]='priorityClass(issue)' [style.color]='issue.field.Priority[1]'>{{ issue.field.Priority[0] }}</span>
             <span class="project-list__state" *ngIf="issue.field.State">{{ issue.field.State[0] }}</span>
             <span class="project-list__state" *ngIf="issue.field.Stage">{{ issue.field.Stage[0] }}</span>
             <span class="project-list__type" *ngIf="issue.field.Type">{{ issue.field.Type[0] }}</span>
@@ -36,7 +36,7 @@
           
           <div class="project-list__content">
             <span class="project-list__summary">{{ issue.field.summary }}</span>
-            <span class="project-list__estimation" title="Estimation time: {{ issue.field.Est }}">{{ issue.field.Est }}</span>
+            <span class="project-list__estimation" title="Estimation time: {{ issue.field.Estimation }}">{{ issue.field.Estimation }}</span>
           </div>
         </div>
         <div *ngIf="agile?.issues == 0" class="project-list__issues--empty">

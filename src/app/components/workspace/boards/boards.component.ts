@@ -253,8 +253,12 @@ export class BoardsComponent implements OnInit {
     let states = []
     let currentAccount = await this.account.Current()
     this.agiles[agileIndex].issues.forEach((issue) => {
+      let priority = "none"
       states.push(issue.field.State[0])
-      this.databaseService.saveBoardStates(currentAccount["id"], this.agiles[agileIndex].name, issue.field.Priority[0])
+      if (issue.field.hasOwnProperty('Priority')) {
+        priority = issue.field.Priority[0]
+      }
+      this.databaseService.saveBoardStates(currentAccount["id"], this.agiles[agileIndex].name, priority)
     })
   }
 
@@ -268,8 +272,10 @@ export class BoardsComponent implements OnInit {
   
   public priorityClass(issue) {
     this.boardStates.filter(board => {
-      if (board.boardName == issue.agile && board.state == issue.field.Priority[0]) {
-        return issue.field.Priority[1] = board.hexColor
+      if (board.boardName == issue.agile && issue.field.hasOwnProperty('Priority')) {
+        if (board.state == issue.field.Priority[0]) {
+          return issue.field.Priority[1] = board.hexColor
+        }
       }
     })
   }
