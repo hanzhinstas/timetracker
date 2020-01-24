@@ -21,7 +21,7 @@
             <span class="project-list__priority" [ngClass]='priorityClass(issue)' [style.color]='issue.field.Priority[1]'>{{ issue.field.Priority[0] }}</span>
             <span class="project-list__state" *ngIf="issue.field.State">{{ issue.field.State[0] }}</span>
             <span class="project-list__state" *ngIf="issue.field.Stage">{{ issue.field.Stage[0] }}</span>
-            <span class="project-list__type">{{ issue.field.Type[0] }}</span>
+            <span class="project-list__type" *ngIf="issue.field.Type">{{ issue.field.Type[0] }}</span>
             <span class="project-list__description trec-icon-description" *ngIf="issue.hasDescription" title="{{ issue.field.description }}">
             </span>
             <span class="project-list__comments trec-icon-comments" *ngIf="issue.hasComment" title="Issue has {{ issue.hasComment }} comment(s)">
