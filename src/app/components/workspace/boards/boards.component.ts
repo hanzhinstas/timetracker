@@ -91,6 +91,7 @@ export class BoardsComponent implements OnInit {
 
   public showCommandModal(issue){
     this.currentAgile = undefined
+    this.newIssue = undefined
     this.applyCommand = { id: issue, command:'' }
     document.getElementById('addIssue').style.display = 'block'
   }
@@ -100,7 +101,8 @@ export class BoardsComponent implements OnInit {
     this.applyCommand = undefined
     console.log("agile", this.currentAgile)
     this.newIssue = new newIssue
-    this.newIssue.project = this.currentAgile["projects"][0]["id"]
+    this.newIssue.project = this.currentAgile["projects"][0]["shortName"]
+    let newIssue_state = this.currentAgile["columnSettings"]["columns"][0]["presentation"]
     document.getElementById('addIssue').style.display = 'block'
   }
 
@@ -112,7 +114,8 @@ export class BoardsComponent implements OnInit {
   public async createIssueOnBoard(data, board) {
     this.agiles.filter(agile => { 
       if (agile.name == board){
-        let state = agile.columnSettings.visibleValues[0].value;
+        let state = data.state;
+        delete data["state"];
         return this.api.createIssueOnBoard(data, board, state).then(() => this.init());
       }
     })

@@ -58,9 +58,14 @@
       <span class="trec-icon-close" (click)="hideAddIssueModal()"></span>
       <div class="modal__text" *ngIf="currentAgile != undefined">{{ 'Create issue at ' + currentAgile.name + ' Board' }}</div>
       <div *ngIf="newIssue" class="modal__form"> 
-        <label>Project</label> 
+        <label>Project</label>
         <select [(ngModel)]="newIssue.project">
-          <option *ngFor="let project of currentAgile.projects">{{ project.id }}</option>
+          <option *ngFor="let project of currentAgile.projects" value={{project.shortName}}>{{project.name}}</option>
+        </select>
+        <label>State</label>
+        <select name="newIssue_state">
+          <option disabled>Select State</option>
+          <option *ngFor="let state of currentAgile.columnSettings.columns" value={{state.presentation}}>{{state.presentation}}</option>
         </select>        
         <label>Title</label>
         <input type="text" [(ngModel)]="newIssue.summary">
