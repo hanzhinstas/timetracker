@@ -73,6 +73,7 @@
     "electron-reload": "1.2.1",
     "electron-squirrel-startup": "^1.0.0",
     "electron-winstaller": "^4.0.0",
+    "electron-installer-debian": "^3.0.0",
     "exports-loader": "0.6.4",
     "file-loader": "0.11.2",
     "font-awesome": "^4.7.0",
